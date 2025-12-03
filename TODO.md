@@ -1,0 +1,1 @@
+- [ ] product item property'lerini gözden geçir. Orda amount da olmalı
