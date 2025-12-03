@@ -29,10 +29,11 @@ import 'package:persona_click_rest/persona_click_rest.dart';
 
 void main() async {
   // Initialize the SDK
+  // 'stream' is optional. If omitted, it auto-detects (Android/iOS/Web).
   await PersonaClick().init(
     shopId: 'YOUR_SHOP_ID',
-    stream: 'android', // or 'ios', 'web'
-    source: 'CAMPAIGN_CODE', // Optional: Sets initial source
+    stream: PersonaStream.android, 
+    source: 'CAMPAIGN_CODE', // Optional
   );
   
   runApp(MyApp());

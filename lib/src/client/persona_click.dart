@@ -1,10 +1,33 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:persona_click_rest/src/client/api_client.dart';
 import 'package:persona_click_rest/src/models/events.dart';
 import 'package:persona_click_rest/src/models/init_response.dart';
 import 'package:persona_click_rest/src/models/persona_product_item.dart';
 import 'package:persona_click_rest/src/utils/storage.dart';
+
+/// Supported platforms for PersonaClick.
+enum PersonaStream {
+  android,
+  ios,
+  web;
+
+  static String get platformName {
+    if (kIsWeb) {
+      return 'web';
+    }
+
+    return switch (Platform.operatingSystem) {
+      'android' => 'android',
+      'ios' => 'ios',
+      _ => throw UnsupportedError(
+          'PersonaClick: Unsupported platform. Please specify stream manually.',
+        ),
+    };
+  }
+}
 
 /// Main class for interacting with the PersonaClick API.
 class PersonaClick {
@@ -33,19 +56,22 @@ class PersonaClick {
   /// Initializes the PersonaClick SDK.
   ///
   /// [shopId] - Your shop ID.
-  /// [stream] - The stream name (e.g. 'android', 'ios', 'web').
+  /// [stream] - The stream (platform). If null, it attempts to detect automatically.
   /// [segment] - The user segment (default is null).
   /// [source] - Optional source parameter. If provided, it updates the stored source.
   Future<void> init({
     required String shopId,
-    required String stream,
+    PersonaStream? stream,
     String? segment,
     String? source,
   }) async {
     if (_initCompleter.isCompleted) return;
 
     _shopId = shopId;
-    _stream = stream;
+
+    // Auto-detect stream if not provided
+    _stream = stream?.name ?? PersonaStream.platformName;
+
     _segment = segment;
     _apiClient = ApiClient();
 

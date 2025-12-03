@@ -9,7 +9,7 @@ void main() async {
   try {
     await PersonaClick().init(
       shopId: shopId,
-      stream: 'web',
+      stream: PersonaStream.web, // Optional: Can be omitted for auto-detection
     );
     print('Initialization successful!');
   } catch (e) {
