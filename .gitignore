@@ -12,3 +12,6 @@ coverage/
 
 # Source
 source/
+
+# Build
+build/
