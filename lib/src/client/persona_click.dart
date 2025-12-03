@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, visibleForTesting;
 import 'package:persona_click_rest/src/client/api_client.dart';
 import 'package:persona_click_rest/src/models/events.dart';
 import 'package:persona_click_rest/src/models/init_response.dart';
@@ -33,8 +33,14 @@ enum PersonaStream {
 class PersonaClick {
   PersonaClick._();
 
-  static late final ApiClient _apiClient;
-  static final StorageService _storage = StorageService();
+  static ApiClient? _apiClient;
+  static StorageService _storage = StorageService();
+
+  @visibleForTesting
+  static set apiClient(ApiClient client) => _apiClient = client;
+
+  @visibleForTesting
+  static set storage(StorageService storage) => _storage = storage;
 
   static String? _shopId;
   static String? _did;
@@ -43,7 +49,10 @@ class PersonaClick {
   static String? _segment;
   static String? _source;
 
-  static final Completer<void> _initCompleter = Completer<void>();
+  static Completer<void> _initCompleter = Completer<void>();
+
+  @visibleForTesting
+  static void resetInitCompleter() => _initCompleter = Completer<void>();
 
   /// Returns a future that completes when initialization is finished.
   static Future<void> get initialized => _initCompleter.future;
@@ -68,7 +77,7 @@ class PersonaClick {
     _stream = stream?.name ?? PersonaStream.platformName;
 
     _segment = segment;
-    _apiClient = ApiClient();
+    _apiClient ??= ApiClient();
 
     try {
       _did = await _storage.getDid();
@@ -80,7 +89,7 @@ class PersonaClick {
         await _checkAndLoadSource();
       }
 
-      final response = await _apiClient.get('/init', queryParameters: {
+      final response = await _apiClient!.get('/init', queryParameters: {
         'shop_id': _shopId,
         if (_did != null) 'did': _did,
       });
@@ -161,7 +170,7 @@ class PersonaClick {
     });
 
     try {
-      await _apiClient.post(path, data: body);
+      await _apiClient!.post(path, data: body);
     } catch (e) {
       print('PersonaClick track error: $e');
       rethrow;

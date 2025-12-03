@@ -30,7 +30,7 @@ import 'package:persona_click_rest/persona_click_rest.dart';
 void main() async {
   // Initialize the SDK
   // 'stream' is optional. If omitted, it auto-detects (Android/iOS/Web).
-  await PersonaClick().init(
+  await PersonaClick.init(
     shopId: 'YOUR_SHOP_ID',
     stream: PersonaStream.android, 
     source: 'CAMPAIGN_CODE', // Optional
@@ -45,7 +45,7 @@ void main() async {
 #### Add to Cart
 
 ```dart
-await PersonaClick().trackCart(
+await PersonaClick.trackCart(
   items: [
     PersonaProductItem(id: '100500', amount: 3, price: 100.0),
   ],
@@ -55,7 +55,7 @@ await PersonaClick().trackCart(
 #### Purchase
 
 ```dart
-await PersonaClick().trackPurchase(
+await PersonaClick.trackPurchase(
   orderId: 'ORDER_12345',
   items: [
     PersonaProductItem(id: '100500', amount: 3, price: 100.0),
@@ -67,7 +67,7 @@ await PersonaClick().trackPurchase(
 #### Search
 
 ```dart
-await PersonaClick().trackSearch(
+await PersonaClick.trackSearch(
   searchQuery: 'apple',
 );
 ```
@@ -75,7 +75,7 @@ await PersonaClick().trackSearch(
 #### Product View
 
 ```dart
-await PersonaClick().trackProductView(
+await PersonaClick.trackProductView(
   items: [
     PersonaProductItem(id: '100500'),
   ],
@@ -87,7 +87,7 @@ await PersonaClick().trackProductView(
 #### Category View
 
 ```dart
-await PersonaClick().trackCategoryView(
+await PersonaClick.trackCategoryView(
   categoryId: '146',
 );
 ```
@@ -95,7 +95,7 @@ await PersonaClick().trackCategoryView(
 #### Custom Events
 
 ```dart
-await PersonaClick().trackCustomEvent(
+await PersonaClick.trackCustomEvent(
   name: 'my_custom_event',
   category: 'interaction',
   label: 'button_click',
@@ -109,7 +109,7 @@ The `init` and `track` methods return `Future`s. You should wrap them in try-cat
 
 ```dart
 try {
-  await PersonaClick().track(CartEvent(...));
+  await PersonaClick.track(CartEvent(...));
 } catch (e) {
   print('Failed to track event: $e');
 }
