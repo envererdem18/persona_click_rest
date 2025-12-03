@@ -12,7 +12,6 @@ dependencies:
     sdk: flutter
   dio: ^5.3.2
   shared_preferences: ^2.2.0
-  uuid: ^4.0.0
 
 dev_dependencies:
   flutter_test:
