@@ -27,7 +27,7 @@ class CartEvent extends PersonaEvent {
     return {
       'event': eventName,
       if (referer != null) 'referer': referer,
-      'items': items.map((e) => e.toJson(useAmountKey: false)).toList(),
+      'items': items.map((e) => e.toJson()).toList(),
       if (fullCart != null) 'full_cart': fullCart,
       if (source != null) 'source': source,
     };
@@ -63,7 +63,7 @@ class PurchaseEvent extends PersonaEvent {
       if (referer != null) 'referer': referer,
       'order_id': orderId,
       if (orderPrice != null) 'order_price': orderPrice,
-      'items': items.map((e) => e.toJson(useAmountKey: true)).toList(),
+      'items': items.map((e) => e.toJson()).toList(),
       if (source != null) 'source': source,
       if (custom != null) 'custom': custom,
     };

@@ -46,7 +46,7 @@ void main() async {
 ```dart
 await PersonaClick().trackCart(
   items: [
-    PersonaProductItem(id: '100500', quantity: 3, price: 100.0),
+    PersonaProductItem(id: '100500', amount: 3, price: 100.0),
   ],
 );
 ```
@@ -57,7 +57,7 @@ await PersonaClick().trackCart(
 await PersonaClick().trackPurchase(
   orderId: 'ORDER_12345',
   items: [
-    PersonaProductItem(id: '100500', quantity: 3, price: 100.0),
+    PersonaProductItem(id: '100500', amount: 3, price: 100.0),
   ],
   orderPrice: 300.0,
 );

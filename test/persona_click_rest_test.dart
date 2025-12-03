@@ -12,9 +12,9 @@ void main() {
       expect(json['price'], 10.0);
     });
 
-    test('toJson serialization with amount key', () {
-      final item = PersonaProductItem(id: '123', quantity: 2, price: 10.0);
-      final json = item.toJson(useAmountKey: true);
+    test('toJson serialization with amount', () {
+      final item = PersonaProductItem(id: '123', amount: 2, price: 10.0);
+      final json = item.toJson();
 
       expect(json['id'], '123');
       expect(json['amount'], 2);

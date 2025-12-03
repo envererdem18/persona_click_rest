@@ -33,7 +33,7 @@ void main() async {
   try {
     await PersonaClick().trackCart(
       items: [
-        PersonaProductItem(id: '123', quantity: 1, price: 999.0),
+        PersonaProductItem(id: '123', amount: 1, price: 999.0),
       ],
     );
     print('Cart event tracked!');
