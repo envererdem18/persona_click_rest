@@ -31,27 +31,22 @@ enum PersonaStream {
 
 /// Main class for interacting with the PersonaClick API.
 class PersonaClick {
-  static final PersonaClick _instance = PersonaClick._internal();
+  PersonaClick._();
 
-  /// Returns the singleton instance of [PersonaClick].
-  factory PersonaClick() => _instance;
+  static late final ApiClient _apiClient;
+  static final StorageService _storage = StorageService();
 
-  PersonaClick._internal();
+  static String? _shopId;
+  static String? _did;
+  static String? _seance;
+  static String? _stream;
+  static String? _segment;
+  static String? _source;
 
-  late final ApiClient _apiClient;
-  final StorageService _storage = StorageService();
-
-  String? _shopId;
-  String? _did;
-  String? _seance;
-  String? _stream;
-  String? _segment;
-  String? _source;
-
-  final Completer<void> _initCompleter = Completer<void>();
+  static final Completer<void> _initCompleter = Completer<void>();
 
   /// Returns a future that completes when initialization is finished.
-  Future<void> get initialized => _initCompleter.future;
+  static Future<void> get initialized => _initCompleter.future;
 
   /// Initializes the PersonaClick SDK.
   ///
@@ -59,7 +54,7 @@ class PersonaClick {
   /// [stream] - The stream (platform). If null, it attempts to detect automatically.
   /// [segment] - The user segment (default is null).
   /// [source] - Optional source parameter. If provided, it updates the stored source.
-  Future<void> init({
+  static Future<void> init({
     required String shopId,
     PersonaStream? stream,
     String? segment,
@@ -111,7 +106,7 @@ class PersonaClick {
     }
   }
 
-  Future<void> _checkAndLoadSource() async {
+  static Future<void> _checkAndLoadSource() async {
     final storedSource = await _storage.getSource();
     final storedTime = await _storage.getSourceTimestamp();
 
@@ -132,7 +127,7 @@ class PersonaClick {
 
   /// Sets the source parameter and saves it with the current timestamp.
   /// Valid for 48 hours.
-  Future<void> setSource(String source) async {
+  static Future<void> setSource(String source) async {
     _source = source;
     await _storage.saveSource(source);
   }
@@ -140,7 +135,7 @@ class PersonaClick {
   /// Tracks an event.
   ///
   /// [event] - The event to track (e.g. [CartEvent], [PurchaseEvent]).
-  Future<void> track(PersonaEvent event) async {
+  static Future<void> track(PersonaEvent event) async {
     await initialized;
 
     // Check if event has a source, if so update storage
@@ -174,7 +169,7 @@ class PersonaClick {
   }
 
   /// Tracks a cart event.
-  Future<void> trackCart({
+  static Future<void> trackCart({
     required List<PersonaProductItem> items,
     String? referer,
     bool? fullCart,
@@ -189,7 +184,7 @@ class PersonaClick {
   }
 
   /// Tracks a purchase event.
-  Future<void> trackPurchase({
+  static Future<void> trackPurchase({
     required String orderId,
     required List<PersonaProductItem> items,
     double? orderPrice,
@@ -210,7 +205,7 @@ class PersonaClick {
   }
 
   /// Tracks a search event.
-  Future<void> trackSearch({
+  static Future<void> trackSearch({
     required String searchQuery,
     String? recommendedCode,
     String? referer,
@@ -225,7 +220,7 @@ class PersonaClick {
   }
 
   /// Tracks a wishlist event.
-  Future<void> trackWishlist({
+  static Future<void> trackWishlist({
     required List<PersonaProductItem> items,
     String? referer,
     bool? fullWish,
@@ -240,7 +235,7 @@ class PersonaClick {
   }
 
   /// Tracks a remove from cart event.
-  Future<void> trackRemoveFromCart({
+  static Future<void> trackRemoveFromCart({
     required List<PersonaProductItem> items,
     String? referer,
   }) {
@@ -251,7 +246,7 @@ class PersonaClick {
   }
 
   /// Tracks a remove from wishlist event.
-  Future<void> trackRemoveFromWishlist({
+  static Future<void> trackRemoveFromWishlist({
     required List<PersonaProductItem> items,
     String? referer,
   }) {
@@ -262,7 +257,7 @@ class PersonaClick {
   }
 
   /// Tracks a custom event.
-  Future<void> trackCustomEvent({
+  static Future<void> trackCustomEvent({
     required String name,
     String? referer,
     String? category,
@@ -283,7 +278,7 @@ class PersonaClick {
   }
 
   /// Tracks a product view event.
-  Future<void> trackProductView({
+  static Future<void> trackProductView({
     required List<PersonaProductItem> items,
     String? referer,
     String? recommendedBy,
@@ -300,7 +295,7 @@ class PersonaClick {
   }
 
   /// Tracks a category view event.
-  Future<void> trackCategoryView({
+  static Future<void> trackCategoryView({
     required String categoryId,
     String? referer,
     String? source,

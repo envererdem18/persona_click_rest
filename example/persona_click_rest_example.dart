@@ -7,7 +7,7 @@ void main() async {
 
   print('Initializing PersonaClick...');
   try {
-    await PersonaClick().init(
+    await PersonaClick.init(
       shopId: shopId,
       stream: PersonaStream.web, // Optional: Can be omitted for auto-detection
     );
@@ -20,7 +20,7 @@ void main() async {
   // 2. Track a search event
   print('Tracking search event...');
   try {
-    await PersonaClick().trackSearch(
+    await PersonaClick.trackSearch(
       searchQuery: 'iphone',
     );
     print('Search event tracked!');
@@ -31,7 +31,7 @@ void main() async {
   // 3. Track add to cart
   print('Tracking add to cart...');
   try {
-    await PersonaClick().trackCart(
+    await PersonaClick.trackCart(
       items: [
         PersonaProductItem(id: '123', amount: 1, price: 999.0),
       ],
