@@ -1,3 +1,6 @@
+> [!WARNING]
+> This package is currently under development. There may be some breaking changes. Please be careful when using it.
+
 # PersonaClick REST
 
 A Dart package for integrating with the PersonaClick REST API. This package allows you to track user activities, manage sessions, and send events to PersonaClick.
@@ -32,10 +35,10 @@ void main() async {
   // 'stream' is optional. If omitted, it auto-detects (Android/iOS/Web).
   await PersonaClick.init(
     shopId: 'YOUR_SHOP_ID',
-    stream: PersonaStream.android, 
+    stream: PersonaStream.android,
     source: 'CAMPAIGN_CODE', // Optional
   );
-  
+
   runApp(MyApp());
 }
 ```
