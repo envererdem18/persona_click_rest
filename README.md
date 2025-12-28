@@ -1,6 +1,10 @@
 > [!WARNING]
 > This package is currently under development. There may be some breaking changes. Please be careful when using it.
 
+<p align="center">
+  <img src="doc/assets/personaclick_logo.svg" alt="PersonaClick Logo" />
+</p>
+
 # PersonaClick REST
 
 A Dart package for integrating with the PersonaClick REST API. This package allows you to track user activities, manage sessions, and send events to PersonaClick.
