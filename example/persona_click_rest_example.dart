@@ -3,7 +3,7 @@ import 'package:persona_click_rest/persona_click_rest.dart';
 void main() async {
   // 1. Initialize the SDK
   // Replace with your actual shop ID
-  final shopId = '0d42fd8b713d0752776ca589cc0056';
+  final shopId = 'YOUR_SHOP_ID';
 
   print('Initializing PersonaClick...');
   try {
