@@ -2,6 +2,8 @@ name: persona_click_rest
 description: A Dart package for PersonaClick REST API integration.
 version: 0.0.1
 homepage: https://personaclick.com
+repository: https://github.com/envererdem18/persona_click_rest
+issue_tracker: https://github.com/envererdem18/persona_click_rest/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
