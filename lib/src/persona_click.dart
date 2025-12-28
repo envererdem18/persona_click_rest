@@ -102,10 +102,12 @@ class PersonaClick {
         }
         if (initResponse.seance != null) {
           _seance = initResponse.seance;
+          // TODO: Should I save seance?
         }
       }
       _initCompleter.complete();
     } catch (e) {
+      // TODO: Throw appropriate error
       // If initialization fails, we log it.
       // Future tracking calls will wait for this completer, so we should probably
       // complete it with error or just complete it to allow "offline" behavior
@@ -172,6 +174,7 @@ class PersonaClick {
     try {
       await _apiClient!.post(path, data: body);
     } catch (e) {
+      // TODO: Throw appropriate error
       print('PersonaClick track error: $e');
       rethrow;
     }
