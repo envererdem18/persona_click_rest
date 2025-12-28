@@ -9,3 +9,7 @@
 - PersonaClick logo added.
 - README.md updated.
 - Example updated.
+
+## 0.0.3
+
+- Homepage removed.
