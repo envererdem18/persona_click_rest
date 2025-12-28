@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:persona_click_rest/persona_click_rest.dart';
 import 'package:persona_click_rest/src/client/api_client.dart';
+import 'package:persona_click_rest/src/models/events.dart';
 import 'package:persona_click_rest/src/utils/storage.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
@@ -159,8 +160,7 @@ void main() {
 
       await PersonaClick.trackCustomEvent(name: 'custom');
 
-      verify(() => mockApiClient.post('/push/custom', data: any(named: 'data')))
-          .called(1);
+      verify(() => mockApiClient.post('/push/custom', data: any(named: 'data'))).called(1);
     });
 
     test('trackProductView', () async {
@@ -214,8 +214,7 @@ void main() {
 
       // Verify that the stored source was sent in the payload
       final captured =
-          verify(() => mockApiClient.post(any(), data: captureAny(named: 'data')))
-              .captured;
+          verify(() => mockApiClient.post(any(), data: captureAny(named: 'data'))).captured;
       final body = captured.first as Map<String, dynamic>;
       expect(body['source'], 'stored_source');
     });
@@ -223,8 +222,8 @@ void main() {
     test('checkAndLoadSource clears expired source', () async {
       when(() => mockStorageService.getSource()).thenAnswer((_) async => 'old_source');
       // 49 hours ago
-      when(() => mockStorageService.getSourceTimestamp()).thenAnswer((_) async =>
-          DateTime.now().subtract(const Duration(hours: 49)).millisecondsSinceEpoch);
+      when(() => mockStorageService.getSourceTimestamp()).thenAnswer(
+          (_) async => DateTime.now().subtract(const Duration(hours: 49)).millisecondsSinceEpoch);
 
       // Setup init
       final response = MockResponse();
@@ -243,8 +242,7 @@ void main() {
 
       verify(() => mockStorageService.clearSource()).called(2);
       final captured =
-          verify(() => mockApiClient.post(any(), data: captureAny(named: 'data')))
-              .captured;
+          verify(() => mockApiClient.post(any(), data: captureAny(named: 'data'))).captured;
       final body = captured.first as Map<String, dynamic>;
       expect(body.containsKey('source'), false);
     });
@@ -265,8 +263,7 @@ void main() {
     });
 
     test('PurchaseEvent toJson', () {
-      final event =
-          PurchaseEvent(orderId: '1', items: [], orderPrice: 100, currency: 'USD');
+      final event = PurchaseEvent(orderId: '1', items: [], orderPrice: 100, currency: 'USD');
       final json = event.toJson();
       expect(json['event'], 'purchase');
       expect(json['order_id'], '1');
@@ -301,8 +298,8 @@ void main() {
     });
 
     test('CustomEvent toJson', () {
-      final event = CustomEvent(
-          name: 'custom', category: 'cat', label: 'lbl', value: 1, payload: {'a': 1});
+      final event =
+          CustomEvent(name: 'custom', category: 'cat', label: 'lbl', value: 1, payload: {'a': 1});
       final json = event.toJson();
       expect(json['event'], 'custom');
       expect(json['category'], 'cat');
@@ -312,8 +309,7 @@ void main() {
     });
 
     test('ProductViewEvent toJson', () {
-      final event =
-          ProductViewEvent(items: [], recommendedBy: 'rec', recommendedCode: 'code');
+      final event = ProductViewEvent(items: [], recommendedBy: 'rec', recommendedCode: 'code');
       final json = event.toJson();
       expect(json['event'], 'view');
       expect(json['recommended_by'], 'rec');
