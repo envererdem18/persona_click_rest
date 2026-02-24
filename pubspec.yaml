@@ -1,6 +1,6 @@
 name: persona_click_rest
 description: A Dart package for PersonaClick REST API integration.
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/envererdem18/persona_click_rest
 issue_tracker: https://github.com/envererdem18/persona_click_rest/issues
 license: MIT
@@ -15,8 +15,6 @@ dependencies:
 
   # Network
   dio: ^5.3.2
-  dio_cookie_manager: ^3.3.0
-  cookie_jar: ^4.0.8
 
   # Storage
   shared_preferences: ^2.2.0

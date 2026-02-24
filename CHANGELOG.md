@@ -18,3 +18,7 @@
 
 - Cookie management added.
 - Event models exported.
+
+## 0.0.5
+
+- Cookie management fixed.
