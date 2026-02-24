@@ -13,3 +13,8 @@
 ## 0.0.3
 
 - Homepage removed.
+
+## 0.0.4
+
+- Cookie management added.
+- Event models exported.
