@@ -1,4 +1,6 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 
 class ApiClient {
   final Dio _dio;
@@ -9,6 +11,11 @@ class ApiClient {
     _dio.options.headers['content-type'] = 'application/json';
     _dio.options.connectTimeout = const Duration(seconds: 10);
     _dio.options.receiveTimeout = const Duration(seconds: 10);
+
+    final cookieJar = CookieJar(
+      ignoreExpires: false,
+    );
+    _dio.interceptors.add(CookieManager(cookieJar));
   }
 
   Future<Response> get(String path, {Map<String, dynamic>? queryParameters}) {
